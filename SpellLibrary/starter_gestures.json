@@ -1,0 +1,40 @@
+{
+  "gestures": [
+    {
+      "name": "Flarebind",
+      "description": "Fireball casting gesture",
+      "hand": "right",
+      "points": [
+        {"x": 0.0, "y": 0.0, "z": 0.0},
+        {"x": 0.1, "y": 0.2, "z": 0.0},
+        {"x": 0.2, "y": 0.4, "z": 0.0}
+      ],
+      "cooldown": 1.5,
+      "icon": "flarebind_thumb.png"
+    },
+    {
+      "name": "Graviton Pull",
+      "description": "Telekinesis grab-lift-push",
+      "hand": "both",
+      "points": [
+        {"x": 0.0, "y": 0.0, "z": 0.0},
+        {"x": -0.1, "y": 0.3, "z": 0.0},
+        {"x": -0.2, "y": 0.6, "z": 0.0}
+      ],
+      "cooldown": 2.0,
+      "icon": "graviton_thumb.png"
+    },
+    {
+      "name": "Shield Pulse",
+      "description": "Defensive radial shield (planned)",
+      "hand": "left",
+      "points": [
+        {"x": 0.0, "y": 0.0, "z": 0.0},
+        {"x": 0.0, "y": 0.2, "z": 0.1},
+        {"x": 0.0, "y": 0.4, "z": 0.2}
+      ],
+      "cooldown": 3.0,
+      "icon": "shield_thumb.png"
+    }
+  ]
+}
