@@ -8,6 +8,7 @@ logs.  Example:
 """
 from pathlib import Path
 import json
+import torch
 import typer
 
 from omniintent.ingest.quest3_ingest import load as load_q3
@@ -52,9 +53,35 @@ def demo(
                         "module not found. Nothing to do.", fg=typer.colors.RED)
     else:
         batch = load_q3(str(ingest), seq_len=seq_len)
-        # For now, just print tensor shapes so users see something immediately.
-        shapes = {k: list(t.shape) for k, t in batch.items()}
-        typer.echo(json.dumps(shapes, indent=2))
+
+        # -----------------------------------------------------------------
+        # Run the real transformer when available; otherwise fall back to
+        # printing tensor shapes so developer envs without the heavyweight
+        # model still work.
+        # -----------------------------------------------------------------
+        try:
+            from omniintent.model import MultiModalTransformer  # type: ignore
+
+            model = MultiModalTransformer.from_pretrained()
+            model.eval()
+            with torch.no_grad():
+                output = model(**batch)
+
+            io_shapes = {
+                "input_shapes": {k: list(v.shape) for k, v in batch.items()},
+                "output_shapes": {k: list(v.shape) for k, v in output.items()},
+            }
+            typer.echo(json.dumps(io_shapes, indent=2))
+
+        except ModuleNotFoundError:
+            typer.secho(
+                "\u26A0\uFE0F  `omniintent.model.MultiModalTransformer` unavailable \u2014 "
+                "printing input tensor shapes only.",
+                fg=typer.colors.YELLOW,
+                err=True,
+            )
+            shapes = {k: list(t.shape) for k, t in batch.items()}
+            typer.echo(json.dumps({"input_shapes": shapes}, indent=2))
 
 if __name__ == "__main__":  # pragma: no cover
     app()

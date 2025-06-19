@@ -63,5 +63,9 @@ python -m omniintent demo --ingest samples/quest3_tiny.csv
 # fall back to synthetic when omitted
 python -m omniintent demo
 
+The CLI will invoke MultiModalTransformer when it’s installed, echoing a
+JSON blob that lists both input and output tensor shapes so you can verify
+live inference end-to-end.
+
 ---
 © 2025 OmniIntent XR Team
