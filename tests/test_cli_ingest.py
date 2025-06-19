@@ -30,7 +30,13 @@ def test_cli_ingest_shapes():
         check=True,
         env=dict(os.environ, PYTHONPATH=str(ROOT / "src")),
     )
-    shapes = json.loads(completed.stdout)
-    # Expect batch dim 1, seq dim 10, feature-count as coded in COLUMN_MAP
-    assert shapes["gaze"] == [1, 10, 3]
-    assert shapes["hand_pose"] == [1, 10, 1]
+    payload = json.loads(completed.stdout)
+
+    # Always check input tensor shapes
+    inp = payload["input_shapes"]
+    assert inp["gaze"] == [1, 10, 3]
+    assert inp["hand_pose"] == [1, 10, 1]
+
+    # If the model is present in the dev environment, ensure output_shapes exist
+    if "output_shapes" in payload:  # pragma: no cover
+        assert isinstance(payload["output_shapes"], dict)
