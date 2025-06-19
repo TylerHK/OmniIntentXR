@@ -67,5 +67,18 @@ The CLI will invoke MultiModalTransformer when it’s installed, echoing a
 JSON blob that lists both input and output tensor shapes so you can verify
 live inference end-to-end.
 
+### End-to-End browser test
+
+When a local dev server is running (`OMNI_UI_URL=http://localhost:3000`),
+Playwright will upload a tiny Parquet sample, wait for inference, and assert
+that the JSON payload contains the expected tensor shapes:
+
+```bash
+export OMNI_UI_URL=http://localhost:3000
+pytest -k e2e
+```
+
+CI skips this test automatically when OMNI_UI_URL is not set.
+
 ---
 © 2025 OmniIntent XR Team
