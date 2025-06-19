@@ -67,6 +67,22 @@ The CLI will invoke MultiModalTransformer when it’s installed, echoing a
 JSON blob that lists both input and output tensor shapes so you can verify
 live inference end-to-end.
 
+### Training & fine-tuning datasets
+
+Need a PyTorch-native stream of fixed-length Quest 3 windows?  Use
+`Quest3Dataset`:
+
+```python
+from omniintent.ingest import Quest3Dataset
+from torch.utils.data import DataLoader
+
+ds = Quest3Dataset("my_logs/", seq_len=60, stride=30)
+loader = DataLoader(ds, batch_size=8, shuffle=True)
+for batch in loader:
+    # batch["gaze"].shape → (8, 60, 3)
+    ...
+```
+
 ### End-to-End browser test
 
 When a local dev server is running (`OMNI_UI_URL=http://localhost:3000`),
