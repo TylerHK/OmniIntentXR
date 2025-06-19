@@ -1,3 +1,4 @@
 pandas>=2.2
 pyarrow>=15.0         # fast parquet/CSV parsing for Quest 3 logs
 torch>=2.1            # tensor operations
+typer>=0.9            # ergonomic CLI utilities
