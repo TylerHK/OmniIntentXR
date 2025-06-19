@@ -1,4 +1,5 @@
-import torch, tempfile, pandas as pd, numpy as np, pathlib, json
+import torch, tempfile, pandas as pd, numpy as np, pathlib, json, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
 from omniintent.ingest.quest3_ingest import load
 
 def test_ingest_shapes(tmp_path):

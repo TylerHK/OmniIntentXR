@@ -51,9 +51,17 @@ Pull requests are welcome! Please read `Documentation/CONTRIBUTING.md`.
 ### OmniIntent — real-sensor ingestion
 
 ```bash
-python -m omniintent.ingest.quest3_ingest my_log.parquet 
+python -m omniintent.ingest.quest3_ingest my_log.parquet
     | jq .gaze   # preview tensor shape
 ```
+
+# --- Demo inference with Quest 3 data -----------------------------------
+
+# feed a real headset log into the transformer demo
+python -m omniintent demo --ingest samples/quest3_tiny.csv
+
+# fall back to synthetic when omitted
+python -m omniintent demo
 
 ---
 © 2025 OmniIntent XR Team
