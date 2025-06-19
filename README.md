@@ -48,6 +48,12 @@ Platforms ▶ Android ▶ Package Project
 
 ## Contributing
 Pull requests are welcome! Please read `Documentation/CONTRIBUTING.md`.
+### OmniIntent — real-sensor ingestion
+
+```bash
+python -m omniintent.ingest.quest3_ingest my_log.parquet 
+    | jq .gaze   # preview tensor shape
+```
 
 ---
 © 2025 OmniIntent XR Team
