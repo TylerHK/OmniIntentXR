@@ -13,6 +13,8 @@ import typer
 
 from omniintent.ingest.quest3_ingest import load as load_q3
 
+__all__ = ["app"]
+
 app = typer.Typer(add_completion=False, help="OmniIntent command-line tools")
 
 
@@ -71,9 +73,9 @@ def demo(
                 "input_shapes": {k: list(v.shape) for k, v in batch.items()},
                 "output_shapes": {k: list(v.shape) for k, v in output.items()},
             }
-            typer.echo(json.dumps(io_shapes, indent=2))
+            typer.echo(json.dumps(io_shapes, separators=(",", ":")))
 
-        except ModuleNotFoundError:
+        except Exception:
             typer.secho(
                 "\u26A0\uFE0F  `omniintent.model.MultiModalTransformer` unavailable \u2014 "
                 "printing input tensor shapes only.",
@@ -81,7 +83,7 @@ def demo(
                 err=True,
             )
             shapes = {k: list(t.shape) for k, t in batch.items()}
-            typer.echo(json.dumps({"input_shapes": shapes}, indent=2))
+            typer.echo(json.dumps({"input_shapes": shapes}, separators=(",", ":")))
 
 if __name__ == "__main__":  # pragma: no cover
     app()

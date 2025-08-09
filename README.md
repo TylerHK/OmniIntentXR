@@ -1,6 +1,17 @@
 # OmniIntentXR
 Unified XR project enabling semi-omnipotent intent via gesture, voice, and gaze (Quest 3).
 
+## 60-second Quickstart
+
+```bash
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+export PYTHONPATH=./src
+python -m omniintent demo --ingest samples/quest3_tiny.csv --seq-len 60
+```
+
+See [docs/usage.md](docs/usage.md) for a walkthrough and expected output.
+
 ## Vision
 Unified XR experience granting users a sense of "semi‑omnipotent intent," intuitively expressed via seamless **gesture, voice, and gaze** inputs. Future roadmap includes EEG‑driven thought control.
 
