@@ -3,7 +3,9 @@ E2E browser test: uploads a tiny Quest 3 Parquet log and checks JSON inference
 output.  Skips automatically when `OMNI_UI_URL` is undefined (e.g. headless CI).
 """
 import os, json, numpy as np, pandas as pd, pytest
-from playwright.sync_api import sync_playwright
+# Skip (rather than error at collection) when Playwright is not installed.
+sync_api = pytest.importorskip("playwright.sync_api")
+sync_playwright = sync_api.sync_playwright
 
 @pytest.mark.skipif(
     "OMNI_UI_URL" not in os.environ, reason="UI server URL not provided"

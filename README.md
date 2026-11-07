@@ -61,18 +61,29 @@ Platforms ▶ Android ▶ Package Project
 Pull requests are welcome! Please read `Documentation/CONTRIBUTING.md`.
 ### OmniIntent — real-sensor ingestion
 
-```bash
-python -m omniintent.ingest.quest3_ingest my_log.parquet
-    | jq .gaze   # preview tensor shape
+```python
+from omniintent.ingest import load_quest3
+
+batch = load_quest3("my_log.parquet", seq_len=60)
+print({k: tuple(v.shape) for k, v in batch.items()})  # {'gaze': (1, 60, 3), 'hand_pose': (1, 60, 1)}
 ```
 
-# --- Demo inference with Quest 3 data -----------------------------------
+### Running the tests
 
+```bash
+pip install -r requirements.txt pytest
+pytest            # pytest.ini puts ./src on the path; e2e test skips without OMNI_UI_URL
+```
+
+### Demo inference with Quest 3 data
+
+```bash
 # feed a real headset log into the transformer demo
 python -m omniintent demo --ingest samples/quest3_tiny.csv
 
 # fall back to synthetic when omitted
 python -m omniintent demo
+```
 
 The CLI will invoke MultiModalTransformer when it’s installed, echoing a
 JSON blob that lists both input and output tensor shapes so you can verify

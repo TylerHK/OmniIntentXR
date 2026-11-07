@@ -6,14 +6,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Smoke test
+          cache: pip
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt || true
+          # CPU-only torch wheel keeps the install small and fast on CI runners
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt pytest
+      - name: Smoke test CLI
+        run: |
           export PYTHONPATH=./src
           python -m omniintent --help
           python -m omniintent demo --ingest samples/quest3_tiny.csv --seq-len 32
+      - name: Run tests
+        run: pytest -v
