@@ -58,7 +58,8 @@ Platforms ▶ Android ▶ Package Project
 - Procedural spell chaining system
 
 ## Contributing
-Pull requests are welcome! Please read `Documentation/CONTRIBUTING.md`.
+Pull requests are welcome! Read [AGENTS.md](AGENTS.md) and [docs/usage.md](docs/usage.md).
+`Documentation/CONTRIBUTING.md` and `Documentation/Setup.md` are not present yet; their setup steps remain unverified.
 ### OmniIntent — real-sensor ingestion
 
 ```python
@@ -120,3 +121,17 @@ CI skips this test automatically when OMNI_UI_URL is not set.
 
 ---
 © 2025 OmniIntent XR Team
+
+## Repository boundary and Unreal assets
+This repository contains the XR/sensor-ingestion prototype. The canonical
+OmniIntent runtime and first-minute Council UX belong to
+[TylerHK/IAmTheDrop](https://github.com/TylerHK/IAmTheDrop). Changes here do not
+validate or alter that runtime.
+
+`.gitattributes` routes future `.uasset` and `.umap` files through Git LFS.
+No such files are currently tracked; this configuration uploads no assets and
+rewrites no history. Install Git LFS before adding Unreal packages, and confirm
+repository/account quota and any billing approval before uploading binaries.
+No quota increase or paid service is authorized by this change. Existing CI
+checks Python ingestion and CLI behavior; it does not build Unreal/Quest,
+validate trained-model inference, or exercise browser E2E without `OMNI_UI_URL`.
